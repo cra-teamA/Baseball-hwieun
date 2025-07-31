@@ -22,6 +22,11 @@ class Game:
             guess_number[0] != self._question[0] and \
             guess_number[2] == self._question[2]:
             return GameResult(False, self.get_strike_count(guess_number), 0)
+
+        if guess_number[0] == self._question[0] and \
+            guess_number[1] != self._question[1] and \
+            guess_number[2] != self._question[2]:
+            return GameResult(False, self.get_strike_count(guess_number), 2)
         return GameResult(False, 0, 0)
 
     def get_strike_count(self, guess_number):
