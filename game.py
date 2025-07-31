@@ -27,8 +27,7 @@ class Game:
         for num, ans_num in zip(guess_number, self._question):
             if num == ans_num:
                 strike_cnt += 1
-            else:
-                if num in self._question:
+            elif num in self._question:
                     ball_cnt += 1
         return strike_cnt, ball_cnt
 
