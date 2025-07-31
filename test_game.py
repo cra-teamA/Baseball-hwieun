@@ -14,20 +14,16 @@ def assert_illegal_argument(game, guess_number):
 def test_exception_when_invalid_input(game, invalid_input):
     assert_illegal_argument(game, invalid_input)
 
+def assert_matched_number(result, solved, strikes, balls):
+    assert result is not None
+    assert result.solved == solved
+    assert result.strikes == strikes
+    assert result.balls == balls
+
 def test_return_solve_result_if_matched_number(game):
     game.question = "123"
-    result: GameResult = game.guess("123")
-
-    assert result is not None
-    assert result.solved == True
-    assert result.strikes == 3
-    assert result.balls == 0
+    assert_matched_number(game.guess("123"), solved=True, strikes=3, balls=0)
 
 def test_return_solve_result_if_unmatched_number(game):
     game.question = "123"
-    result: GameResult = game.guess("456")
-
-    assert result is not None
-    assert result.solved == False
-    assert result.strikes == 0
-    assert result.balls == 0
+    assert_matched_number(game.guess("456"), solved=False, strikes=0, balls=0)
