@@ -18,23 +18,19 @@ class Game:
         if guess_number == self._question:
             return GameResult(True, 3, 0)
 
-        if guess_number[1] == self._question[1] and \
-            guess_number[0] != self._question[0] and \
-            guess_number[2] == self._question[2]:
-            return GameResult(False, self.get_strike_count(guess_number), 0)
+        strike_cnt, ball_cnt = self.get_strike_and_ball_count(guess_number)
+        return GameResult(False, strike_cnt, ball_cnt)
 
-        if guess_number[0] == self._question[0] and \
-            guess_number[1] != self._question[1] and \
-            guess_number[2] != self._question[2]:
-            return GameResult(False, self.get_strike_count(guess_number), 2)
-        return GameResult(False, 0, 0)
-
-    def get_strike_count(self, guess_number):
-        cnt = 0
+    def get_strike_and_ball_count(self, guess_number):
+        strike_cnt = 0
+        ball_cnt = 0
         for num, ans_num in zip(guess_number, self._question):
             if num == ans_num:
-                cnt += 1
-        return cnt
+                strike_cnt += 1
+            else:
+                if num in self._question:
+                    ball_cnt += 1
+        return strike_cnt, ball_cnt
 
     def _assert_illegal_value(self, guess_number):
         if guess_number is None:
