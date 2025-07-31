@@ -21,8 +21,15 @@ class Game:
         if guess_number[1] == self._question[1] and \
             guess_number[0] != self._question[0] and \
             guess_number[2] == self._question[2]:
-            return GameResult(False, 2, 0)
+            return GameResult(False, self.get_strike_count(guess_number), 0)
         return GameResult(False, 0, 0)
+
+    def get_strike_count(self, guess_number):
+        cnt = 0
+        for num, ans_num in zip(guess_number, self._question):
+            if num == ans_num:
+                cnt += 1
+        return cnt
 
     def _assert_illegal_value(self, guess_number):
         if guess_number is None:
